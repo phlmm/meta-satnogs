@@ -19,3 +19,5 @@ do_install:append() {
 inherit cmake
 
 BBCLASSEXTEND = "nativesdk"
+
+BBCLASSEXTEND += "native"

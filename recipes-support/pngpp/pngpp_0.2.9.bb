@@ -29,3 +29,4 @@ do_install () {
 # Since this only produces headers (which go into ${PN}-dev), we must tell Yocto
 # it is okay for the main package to be empty, otherwise it will throw a QA error.
 ALLOW_EMPTY:${PN} = "1"
+BBCLASSEXTEND += "native"
