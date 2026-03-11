@@ -1,0 +1,16 @@
+[Unit]
+Description=SatNOGS rigctld service
+After=network.target
+
+[Service]
+Type=simple
+User=satnogs
+Group=satnogs
+EnvironmentFile=-/etc/default/satnogs-client
+# The 'net' model uses -m 2. If using a serial radio, it uses the model and baud from the env file.
+ExecStart=/usr/bin/rigctld -m ${SATNOGS_RIG_MODEL} -r ${SATNOGS_RIG_PORT} -t 4532
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=SatNOGS client
+After=network.target
+
+[Service]
+Type=simple
+User=satnogs
+Group=satnogs
+EnvironmentFile=-/etc/default/satnogs-client
+ExecStart=/usr/bin/satnogs-client
+Restart=on-failure
+RestartSec=5
+# Systemd will automatically create /var/lib/satnogs and chown it
+StateDirectory=satnogs
+WorkingDirectory=/var/lib/satnogs
+
+[Install]
+WantedBy=multi-user.target

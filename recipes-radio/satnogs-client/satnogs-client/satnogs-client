@@ -1,0 +1,46 @@
+# ====================================================================
+# SatNOGS Client & Hamlib Environment Configuration
+# Generated based on official satnogs-ansible host_vars
+# ====================================================================
+
+# --- Basic Station Identity ---
+SATNOGS_API_TOKEN="YOUR_API_TOKEN_HERE"
+SATNOGS_STATION_ID="YOUR_STATION_ID"
+SATNOGS_STATION_LAT="0.0"
+SATNOGS_STATION_LON="0.0"
+SATNOGS_STATION_ELEV="0"
+
+# --- Network & Paths ---
+SATNOGS_NETWORK_API_URL="https://network.satnogs.org/api/"
+SATNOGS_FLOWGRAPH_PATH="/usr/bin"
+SATNOGS_OUTPUT_PATH="/tmp/.satnogs/data"
+SATNOGS_COMPLETE_OUTPUT_PATH="/var/lib/satnogs/data"
+
+# --- SDR / Radio Configuration ---
+SATNOGS_SOAPY_RX_DEVICE="driver=rtlsdr"
+SATNOGS_RX_SAMP_RATE="2048000"
+SATNOGS_RX_BANDWIDTH="1500000"
+SATNOGS_ANTENNA="RX"
+SATNOGS_GAIN="32.8"
+SATNOGS_PPM_ERROR="0"
+
+# --- Hamlib Rig Control (rigctld) ---
+# Model 2 is NET rigctl. Set to actual hardware model if directly controlling a radio.
+SATNOGS_RIG_MODEL="2"
+SATNOGS_RIG_PORT="127.0.0.1:4532"
+# SATNOGS_RIG_IP="127.0.0.1"
+# SATNOGS_RIG_PORT_NUMBER="4532"
+# SATNOGS_RIG_BAUD="9600"
+
+# --- Hamlib Rotator Control (rotctld) ---
+# Model 2 is NET rotctl. Set to actual hardware model (e.g., 202 for Yaesu) if using a rotator.
+SATNOGS_ROT_MODEL="2"
+SATNOGS_ROT_PORT="127.0.0.1:4533"
+# SATNOGS_ROT_BAUD="9600"
+
+# --- Observation Scripts (Optional Hooks) ---
+# SATNOGS_PRE_OBSERVATION_SCRIPT="/var/lib/satnogs/pre_obs.sh"
+# SATNOGS_POST_OBSERVATION_SCRIPT="/var/lib/satnogs/post_obs.sh"
+
+# --- Logging ---
+SATNOGS_LOG_LEVEL="DEBUG"
