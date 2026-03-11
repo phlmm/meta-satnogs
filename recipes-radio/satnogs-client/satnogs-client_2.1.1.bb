@@ -25,17 +25,50 @@ DEPENDS += "python3-versioneer-native"
 # -----------------------------------------------------------------
 # Runtime Dependencies
 # -----------------------------------------------------------------
-# We combined your recipetool findings with the core SDR requirements.
-# Note: Most of these Python modules (like apscheduler, dotenv, sentry-sdk)
-# require the 'meta-python' layer to be included in your bblayers.conf.
+# -----------------------------------------------------------------
+# Runtime Dependencies (Mapped strictly from requirements.txt)
+# -----------------------------------------------------------------
 RDEPENDS:${PN} += "\
-    python3-core python3-datetime python3-dateutil python3-io \
-    python3-json python3-logging python3-matplotlib python3-netclient \
-    python3-numpy python3-pygps python3-pytz python3-requests \
-    python3-shell python3-unittest python3-python-dotenv \
-    python3-sentry-sdk python3-apscheduler python3-pyephem \
-    python3-h5py python3-validators python3-hamlib \
-    satnogs-flowgraphs soapysdr \
+    python3-apscheduler \
+    python3-certifi \
+    python3-charset-normalizer \
+    python3-contourpy \
+    python3-cycler \
+    python3-decorator \
+    python3-pyephem \
+    python3-fonttools \
+    python3-h5py \
+    python3-idna \
+    python3-kiwisolver \
+    python3-matplotlib \
+    python3-numpy \
+    python3-packaging \
+    python3-pillow \
+    python3-pyparsing \
+    python3-dateutil \
+    python3-python-dotenv \
+    python3-pytz \
+    python3-requests \
+    python3-sentry-sdk \
+    python3-six \
+    python3-tzlocal \
+    python3-urllib3 \
+    python3-validators \
+    \
+    python3-core \
+    python3-datetime \
+    python3-io \
+    python3-json \
+    python3-logging \
+    python3-netclient \
+    python3-shell \
+    python3-unittest \
+    python3-pkg-resources \
+    \
+    hamlib \
+    python3-hamlib \
+    satnogs-flowgraphs \
+    soapysdr \
 "
 
 # -----------------------------------------------------------------
