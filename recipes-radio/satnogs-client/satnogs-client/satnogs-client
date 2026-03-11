@@ -16,12 +16,27 @@ SATNOGS_FLOWGRAPH_PATH="/usr/bin"
 SATNOGS_OUTPUT_PATH="/tmp/.satnogs/data"
 SATNOGS_COMPLETE_OUTPUT_PATH="/var/lib/satnogs/data"
 
-# --- SDR / Radio Configuration ---
-SATNOGS_SOAPY_RX_DEVICE="driver=rtlsdr"
+# --- SDR / Radio Configuration (XTRX) ---
+# For the original Fairwaves XTRX use: "driver=xtrx"
+# For the newer LimeSDR XTRX use: "driver=lime" or "driver=limesuiteng"
+SATNOGS_SOAPY_RX_DEVICE="driver=xtrx"
+
+# XTRX (LMS7002M) has 3 specific LNA inputs. You MUST choose one:
+# LNAH - High frequencies (> 1.5 GHz) - Good for S-Band / L-Band
+# LNAL - Low frequencies (< 1.5 GHz) - Good for VHF / UHF
+# LNAW - Wideband (10 MHz - 3.8 GHz) - Jack of all trades, but lower performance
+SATNOGS_ANTENNA="LNAL"
+
+# Sample rate: 2.048 MSPS or 2.5 MSPS are very stable for SatNOGS flowgraphs
 SATNOGS_RX_SAMP_RATE="2048000"
-SATNOGS_RX_BANDWIDTH="1500000"
-SATNOGS_ANTENNA="RX"
-SATNOGS_GAIN="32.8"
+
+# Analog Bandwidth filtering (set this to just above your sample rate to filter noise)
+SATNOGS_RX_BANDWIDTH="2500000"
+
+# Gain Settings:
+# You can set a global gain (e.g., "40") OR tune the specific LMS7002 stages:
+# "LNA=20,TIA=12,PGA=8"
+SATNOGS_GAIN="40"
 SATNOGS_PPM_ERROR="0"
 
 # --- Hamlib Rig Control (rigctld) ---
