@@ -63,7 +63,55 @@ do_configure:prepend:class-native() {
 #EXTRA_OECMAKE:append:class-native = " -DM_LIB=-lm"
 EXTRA_OECMAKE:append:class-target = " -DCMAKE_CROSSCOMPILING_EMULATOR=${WORKDIR}/qemuwrapper"
 
+do_install:append() {
+    bbnote "Manually installing missing code and fec sub-libraries skipped by CMake..."
+
+    # Ensure the target library directory exists
+    install -d ${D}${libdir}
+
+    # Use cp -P to preserve the symlink structure (so, so.3.1.0git, so.v3.1.0.1)
+    # Standard 'install' command dereferences symlinks, which inflates package size
+    cp -P ${B}/lib/libgnuradio-satnogs.so* ${D}${libdir}/
+    cp -P ${B}/lib/code/libgnuradio-satnogs-code.so* ${D}${libdir}/
+    cp -P ${B}/lib/libfec/libgnuradio-satnogs-fec.so* ${D}${libdir}/
+}
 # -----------------------------------------------------------------
 # NATIVE CLASS EXTENSION
 # -----------------------------------------------------------------
 BBCLASSEXTEND = "native"
+# Ensure Python variables are available
+do_install:append() {
+    # ... (Keep your previous cp -P commands for the .so files here) ...
+
+    bbnote "Spoofing missing pkg-config and CMake target files for downstream recipes..."
+
+    # 1. Generate the missing pkg-config file
+    install -d ${D}${libdir}/pkgconfig
+    cat << EOF > ${D}${libdir}/pkgconfig/gnuradio-satnogs.pc
+prefix=${prefix}
+exec_prefix=${exec_prefix}
+libdir=${libdir}
+includedir=${includedir}
+
+Name: gnuradio-satnogs
+Description: GNU Radio blocks for SATNOGS
+Version: 3.1.0
+Libs: -L\${libdir} -lgnuradio-satnogs -lgnuradio-satnogs-code -lgnuradio-satnogs-fec
+Cflags: -I\${includedir}
+EOF
+
+    # 2. Remove the broken 'include' line from the Config file
+    sed -i '/gnuradio-satnogsTarget.cmake/d' ${D}${libdir}/cmake/gnuradio-satnogs/gnuradio-satnogsConfig.cmake
+
+    # 3. Inject the target definition directly so satnogs-flowgraphs can link to it
+    cat << 'EOF' >> ${D}${libdir}/cmake/gnuradio-satnogs/gnuradio-satnogsConfig.cmake
+
+# --- YOCTO INJECTED TARGET ---
+if(NOT TARGET gnuradio::gnuradio-satnogs)
+    add_library(gnuradio::gnuradio-satnogs SHARED IMPORTED)
+    set_target_properties(gnuradio::gnuradio-satnogs PROPERTIES
+        IMPORTED_LOCATION "${CMAKE_CURRENT_LIST_DIR}/../../libgnuradio-satnogs.so"
+    )
+endif()
+EOF
+}
