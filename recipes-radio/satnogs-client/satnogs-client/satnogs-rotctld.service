@@ -7,7 +7,7 @@ Type=simple
 User=satnogs
 Group=satnogs
 EnvironmentFile=-/etc/default/satnogs-client
-ExecStart=/usr/bin/rotctld -m ${SATNOGS_ROT_MODEL} -r ${SATNOGS_ROT_PORT} -t 4533
+ExecStart=/usr/bin/rotctld -m ${SATNOGS_ROT_MODEL} -r ${SATNOGS_ROT_IP} -t 4533
 Restart=on-failure
 RestartSec=5
 

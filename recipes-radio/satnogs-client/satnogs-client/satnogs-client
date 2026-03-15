@@ -4,11 +4,11 @@
 # ====================================================================
 
 # --- Basic Station Identity ---
-SATNOGS_API_TOKEN="YOUR_API_TOKEN_HERE"
-SATNOGS_STATION_ID="YOUR_STATION_ID"
-SATNOGS_STATION_LAT="0.0"
-SATNOGS_STATION_LON="0.0"
-SATNOGS_STATION_ELEV="0"
+SATNOGS_API_TOKEN="e0d4b1bb8d6b66e9dae787efe82f56f9186fd3f1"
+SATNOGS_STATION_ID="1234"
+SATNOGS_STATION_LAT="42.6977"
+SATNOGS_STATION_LON="23.3219"
+SATNOGS_STATION_ELEV="590"
 
 # --- Network & Paths ---
 SATNOGS_NETWORK_API_URL="https://network.satnogs.org/api/"
@@ -42,15 +42,19 @@ SATNOGS_PPM_ERROR="0"
 # --- Hamlib Rig Control (rigctld) ---
 # Model 2 is NET rigctl. Set to actual hardware model if directly controlling a radio.
 SATNOGS_RIG_MODEL="2"
-SATNOGS_RIG_PORT="127.0.0.1:4532"
-# SATNOGS_RIG_IP="127.0.0.1"
+SATNOGS_RIG_PORT="4532"
+SATNOGS_RIG_IP="127.0.0.1"
+SATNOGS_RIG_DEVICE="/dev/null"
+
 # SATNOGS_RIG_PORT_NUMBER="4532"
 # SATNOGS_RIG_BAUD="9600"
 
 # --- Hamlib Rotator Control (rotctld) ---
 # Model 2 is NET rotctl. Set to actual hardware model (e.g., 202 for Yaesu) if using a rotator.
 SATNOGS_ROT_MODEL="2"
-SATNOGS_ROT_PORT="127.0.0.1:4533"
+SATNOGS_ROT_PORT="4533"
+SATNOGS_ROT_IP="127.0.0.1"
+SATNOGS_ROT_DEVICE="/dev/null"
 # SATNOGS_ROT_BAUD="9600"
 
 # --- Observation Scripts (Optional Hooks) ---
