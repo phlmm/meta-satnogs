@@ -16,11 +16,11 @@ PARALLEL_MAKE = ""
 DEPENDS += "\
     gr-satnogs \
     gr-satnogs-native \
-    soapysdr \
+    gnuradio \
     gnuradio-native \
     hamlib \
     hamlib-native \
-    gnuradio \
+    soapysdr \
     python3-pyyaml-native \
 "
 
