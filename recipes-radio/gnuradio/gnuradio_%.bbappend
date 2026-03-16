@@ -40,9 +40,10 @@ do_configure:prepend:class-native() {
            ${S}/grc/CMakeLists.txt
 }
 
+INSANE_SKIP:${PN}-native += "shebang-size"
 EXTRA_OECMAKE:append:class-native = " \
     -DENABLE_GR_QTGUI=OFF \
+    -DENABLE_GR_QTGUI_OPENGL=OFF \
     -DCMAKE_DISABLE_FIND_PACKAGE_Qt5=TRUE \
     -DCMAKE_DISABLE_FIND_PACKAGE_Qt6=TRUE \
 "
-INSANE_SKIP:${PN}-native += "shebang-size"
