@@ -12,4 +12,4 @@ SRCREV = "1.1"
 inherit setuptools3
 
 DEPENDS += "python3-versioneer-native"
-RDEPENDS:${PN} += "python3-core python3-datetime python3-json python3-logging python3-pyyaml python3-pythondialog"
+RDEPENDS:${PN} += "python3-core python3-datetime python3-json python3-logging python3-pyyaml python3-pythondialog python3-psutil"
