@@ -1,13 +1,13 @@
-# ====================================================================
+ # ====================================================================
 # SatNOGS Client & Hamlib Environment Configuration
 # Generated based on official satnogs-ansible host_vars
 # ====================================================================
 
 # --- Basic Station Identity ---
-SATNOGS_API_TOKEN="e0d4b1bb8d6b66e9dae787efe82f56f9186fd3f1"
-SATNOGS_STATION_ID="YOUR_STATION_ID"
+SATNOGS_API_TOKEN="a168a797d3fd2611581aa5610e8e0700e8a17e7a"
+SATNOGS_STATION_ID="4758"
 SATNOGS_STATION_LAT="42.09963"
-SATNOGS_STATION_LON="23.10666"
+SATNOGS_STATION_LON="23.106661"
 SATNOGS_STATION_ELEV="472"
 
 # --- Network & Storage Management ---
@@ -25,16 +25,17 @@ SATNOGS_ANTENNA="LNAW"
 
 # --- Advanced SDR Gain Staging ---
 # Uses 'Settings Field' to map specific hardware amplifier stages
-SATNOGS_GAIN_MODE="Settings Field"
-SATNOGS_RF_GAIN="0"
-SATNOGS_OTHER_SETTINGS="LNA=20,TIA=12,PGA=8"
+SATNOGS_GAIN_MODE="Overall"
+SATNOGS_RF_GAIN="30.0"
+#SATNOGS_OTHER_SETTINGS="LNA=20,TIA=12,PGA=8"
 
 # --- Hamlib Control (Disabled for Software Doppler) ---
 # Leaving IP/PORT blank prevents GNU Radio from appending the rigctl arguments
-SATNOGS_RIG_IP=""
-SATNOGS_RIG_PORT=""
-SATNOGS_ROT_MODEL="ROT_MODEL_DUMMY"
-SATNOGS_ROT_PORT=""
+SATNOGS_ROT_ENABLED="0"
+SATNOGS_RIG_IP="127.0.0.1"
+SATNOGS_RIG_PORT="4532"
+SATNOGS_ROT_MODEL="None"
+SATNOGS_ROT_PORT="0"
 
 # --- Logging ---
 SATNOGS_LOG_LEVEL="DEBUG"

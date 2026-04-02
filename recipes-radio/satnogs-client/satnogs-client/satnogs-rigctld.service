@@ -1,14 +1,14 @@
 [Unit]
-Description=SatNOGS rigctld service
+Description=SatNOGS Dummy rigctld service
 After=network.target
 
 [Service]
 Type=simple
 User=satnogs
 Group=satnogs
-EnvironmentFile=-/etc/default/satnogs-client
-# The 'net' model uses -m 2. If using a serial radio, it uses the model and baud from the env file.
-ExecStart=/usr/bin/rigctld -m ${SATNOGS_RIG_MODEL} -r ${SATNOGS_RIG_IP} -t 4532
+# Hardcoded to Model 1 (Dummy) listening on port 4532
+# No -r flag needed because there is no physical radio to connect to!
+ExecStart=/usr/bin/rigctld -m 1 -t 4532
 Restart=on-failure
 RestartSec=5
 

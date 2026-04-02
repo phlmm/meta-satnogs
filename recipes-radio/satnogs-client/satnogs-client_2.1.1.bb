@@ -23,7 +23,7 @@ inherit setuptools3 systemd useradd
 
 DEPENDS += "python3-versioneer-native"
 
-PACKAGES += "${PN}-rigctld ${PN}-rotctld"
+PACKAGES += "${PN}-rotctld"
 # -----------------------------------------------------------------
 # Runtime Dependencies
 # -----------------------------------------------------------------
@@ -47,7 +47,6 @@ RDEPENDS:${PN} += "\
     python3-packaging \
     python3-pillow \
     python3-pyparsing \
-    python3-dateutil \
     python3-python-dotenv \
     python3-pytz \
     python3-requests \
@@ -59,6 +58,9 @@ RDEPENDS:${PN} += "\
     \
     python3-core \
     python3-datetime \
+    python3-dateutil \
+    python3-dateutil-zoneinfo \
+    tzdata \
     python3-io \
     python3-json \
     python3-logging \
@@ -85,18 +87,16 @@ USERADD_PARAM:${PN} = "-r -g satnogs -G dialout,audio,video,plugdev -d /var/lib/
 # -----------------------------------------------------------------
 # Systemd Configuration
 # -----------------------------------------------------------------
-SYSTEMD_PACKAGES = "${PN} ${PN}-rigctld ${PN}-rotctld"
+SYSTEMD_PACKAGES = "${PN} ${PN}-rotctld"
 # Register all three services to be enabled on boot
 
 SYSTEMD_SERVICE:${PN} = " \
     satnogs-client.service \
+    satnogs-rigctld.service \
 "
 
 SYSTEMD_AUTO_ENABLE = "enable"
 
-SYSTEMD_SERVICE:${PN}-rigctld = " \
-    satnogs-rigctld.service \
-"
 SYSTEMD_SERVICE:${PN}-rotctld = " \
     satnogs-rotctld.service \
 "
@@ -137,7 +137,7 @@ FILES:${PN} += " \
     ${localstatedir}/lib/satnogs/active_data \
     ${sysconfdir}/udev/rules.d/99-xtrx.rules \
 "
-FILES:${PN}-rigctld += " \
+FILES:${PN} += " \
     ${systemd_system_unitdir}/satnogs-rigctld.service \
 "
 FILES:${PN}-rotctld += " \
