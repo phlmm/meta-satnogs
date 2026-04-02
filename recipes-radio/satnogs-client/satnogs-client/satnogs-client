@@ -5,61 +5,36 @@
 
 # --- Basic Station Identity ---
 SATNOGS_API_TOKEN="e0d4b1bb8d6b66e9dae787efe82f56f9186fd3f1"
-SATNOGS_STATION_ID="1234"
-SATNOGS_STATION_LAT="42.6977"
-SATNOGS_STATION_LON="23.3219"
-SATNOGS_STATION_ELEV="590"
+SATNOGS_STATION_ID="YOUR_STATION_ID"
+SATNOGS_STATION_LAT="42.09963"
+SATNOGS_STATION_LON="23.10666"
+SATNOGS_STATION_ELEV="472"
 
-# --- Network & Paths ---
+# --- Network & Storage Management ---
 SATNOGS_NETWORK_API_URL="https://network.satnogs.org/api/"
-SATNOGS_FLOWGRAPH_PATH="/usr/bin"
 SATNOGS_OUTPUT_PATH="/tmp/.satnogs/data"
 SATNOGS_COMPLETE_OUTPUT_PATH="/var/lib/satnogs/data"
+# Crucial for Yocto: Deletes data from the tmpfs RAM disk after upload
+SATNOGS_REMOVE_RAW_FILES="True"
 
 # --- SDR / Radio Configuration (XTRX) ---
-# For the original Fairwaves XTRX use: "driver=xtrx"
-# For the newer LimeSDR XTRX use: "driver=lime" or "driver=limesuiteng"
 SATNOGS_SOAPY_RX_DEVICE="driver=xtrx"
-
-# XTRX (LMS7002M) has 3 specific LNA inputs. You MUST choose one:
-# LNAH - High frequencies (> 1.5 GHz) - Good for S-Band / L-Band
-# LNAL - Low frequencies (< 1.5 GHz) - Good for VHF / UHF
-# LNAW - Wideband (10 MHz - 3.8 GHz) - Jack of all trades, but lower performance
-SATNOGS_ANTENNA="LNAL"
-
-# Sample rate: 2.048 MSPS or 2.5 MSPS are very stable for SatNOGS flowgraphs
 SATNOGS_RX_SAMP_RATE="2048000"
-
-# Analog Bandwidth filtering (set this to just above your sample rate to filter noise)
 SATNOGS_RX_BANDWIDTH="2500000"
+SATNOGS_ANTENNA="LNAW"
 
-# Gain Settings:
-# You can set a global gain (e.g., "40") OR tune the specific LMS7002 stages:
-# "LNA=20,TIA=12,PGA=8"
-SATNOGS_GAIN="40"
-SATNOGS_PPM_ERROR="0"
+# --- Advanced SDR Gain Staging ---
+# Uses 'Settings Field' to map specific hardware amplifier stages
+SATNOGS_GAIN_MODE="Settings Field"
+SATNOGS_RF_GAIN="0"
+SATNOGS_OTHER_SETTINGS="LNA=20,TIA=12,PGA=8"
 
-# --- Hamlib Rig Control (rigctld) ---
-# Model 2 is NET rigctl. Set to actual hardware model if directly controlling a radio.
-SATNOGS_RIG_MODEL="2"
-SATNOGS_RIG_PORT="4532"
-SATNOGS_RIG_IP="127.0.0.1"
-SATNOGS_RIG_DEVICE="/dev/null"
-
-# SATNOGS_RIG_PORT_NUMBER="4532"
-# SATNOGS_RIG_BAUD="9600"
-
-# --- Hamlib Rotator Control (rotctld) ---
-# Model 2 is NET rotctl. Set to actual hardware model (e.g., 202 for Yaesu) if using a rotator.
-SATNOGS_ROT_MODEL="2"
-SATNOGS_ROT_PORT="4533"
-SATNOGS_ROT_IP="127.0.0.1"
-SATNOGS_ROT_DEVICE="/dev/null"
-# SATNOGS_ROT_BAUD="9600"
-
-# --- Observation Scripts (Optional Hooks) ---
-# SATNOGS_PRE_OBSERVATION_SCRIPT="/var/lib/satnogs/pre_obs.sh"
-# SATNOGS_POST_OBSERVATION_SCRIPT="/var/lib/satnogs/post_obs.sh"
+# --- Hamlib Control (Disabled for Software Doppler) ---
+# Leaving IP/PORT blank prevents GNU Radio from appending the rigctl arguments
+SATNOGS_RIG_IP=""
+SATNOGS_RIG_PORT=""
+SATNOGS_ROT_MODEL="ROT_MODEL_DUMMY"
+SATNOGS_ROT_PORT=""
 
 # --- Logging ---
 SATNOGS_LOG_LEVEL="DEBUG"

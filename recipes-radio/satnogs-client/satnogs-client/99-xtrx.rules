@@ -1,0 +1,2 @@
+# Grant read/write access to the XTRX PCIe character devices
+KERNEL=="xtrx*", SUBSYSTEM=="xtrx", MODE="0660", GROUP="plugdev"

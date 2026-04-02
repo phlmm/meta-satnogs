@@ -12,6 +12,7 @@ SRC_URI += " \
     file://satnogs-client.service \
     file://satnogs-rigctld.service \
     file://satnogs-rotctld.service \
+    file://99-xtrx.rules \
 "
 
 PV = "2.1.1+git"
@@ -22,6 +23,7 @@ inherit setuptools3 systemd useradd
 
 DEPENDS += "python3-versioneer-native"
 
+PACKAGES += "${PN}-rigctld ${PN}-rotctld"
 # -----------------------------------------------------------------
 # Runtime Dependencies
 # -----------------------------------------------------------------
@@ -83,14 +85,21 @@ USERADD_PARAM:${PN} = "-r -g satnogs -G dialout,audio,video,plugdev -d /var/lib/
 # -----------------------------------------------------------------
 # Systemd Configuration
 # -----------------------------------------------------------------
-SYSTEMD_PACKAGES = "${PN}"
+SYSTEMD_PACKAGES = "${PN} ${PN}-rigctld ${PN}-rotctld"
 # Register all three services to be enabled on boot
+
 SYSTEMD_SERVICE:${PN} = " \
     satnogs-client.service \
+"
+
+SYSTEMD_AUTO_ENABLE = "enable"
+
+SYSTEMD_SERVICE:${PN}-rigctld = " \
     satnogs-rigctld.service \
+"
+SYSTEMD_SERVICE:${PN}-rotctld = " \
     satnogs-rotctld.service \
 "
-SYSTEMD_AUTO_ENABLE = "enable"
 
 # -----------------------------------------------------------------
 # Installation
@@ -106,11 +115,31 @@ do_install:append() {
     # Install the master environment configuration file
     install -d ${D}${sysconfdir}/default
     install -m 0644 ${UNPACKDIR}/satnogs-client ${D}${sysconfdir}/default/satnogs-client
+
+    # Install udev rules
+    install -d ${D}${sysconfdir}/udev/rules.d
+    install -m 0644 ${UNPACKDIR}/99-xtrx.rules ${D}${sysconfdir}/udev/rules.d/
+
+    # Create the persistent data directories
+    install -d ${D}${localstatedir}/lib/satnogs/data
+    install -d ${D}${localstatedir}/lib/satnogs/active_data
+
+    # Explicitly change ownership to the satnogs user
+    chown -R satnogs:satnogs ${D}${localstatedir}/lib/satnogs
 }
 
 FILES:${PN} += " \
     ${systemd_system_unitdir}/satnogs-client.service \
-    ${systemd_system_unitdir}/satnogs-rigctld.service \
     ${systemd_system_unitdir}/satnogs-rotctld.service \
     ${sysconfdir}/default/satnogs-client \
+    ${localstatedir}/lib/satnogs \
+    ${localstatedir}/lib/satnogs/data \
+    ${localstatedir}/lib/satnogs/active_data \
+    ${sysconfdir}/udev/rules.d/99-xtrx.rules \
+"
+FILES:${PN}-rigctld += " \
+    ${systemd_system_unitdir}/satnogs-rigctld.service \
+"
+FILES:${PN}-rotctld += " \
+    ${systemd_system_unitdir}/satnogs-rotctld.service \
 "
