@@ -130,7 +130,6 @@ do_install:append() {
 
 FILES:${PN} += " \
     ${systemd_system_unitdir}/satnogs-client.service \
-    ${systemd_system_unitdir}/satnogs-rotctld.service \
     ${sysconfdir}/default/satnogs-client \
     ${localstatedir}/lib/satnogs \
     ${localstatedir}/lib/satnogs/data \

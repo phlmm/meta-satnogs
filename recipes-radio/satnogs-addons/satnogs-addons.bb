@@ -13,9 +13,14 @@ ADDON_DIR = "${S}/addons"
 
 inherit python3native
 DEPENDS += "satnogs-client"
+# Tell the fakeroot environment about the satnogs user so chown works
 inherit useradd
 USERADD_PACKAGES = "${PN}"
-USERADD_PARAM:${PN} = "-r satnogs"
+GROUPADD_PARAM:${PN} = "-r satnogs"
+# Creates the 'satnogs' user and adds them to dialout, audio, video, and plugdev
+# This is critical so the client can access the USB SDR hardware without being root.
+USERADD_PARAM:${PN} = "-r -g satnogs -G dialout,audio,video,plugdev -d /var/lib/satnogs -s /bin/false satnogs"
+
 # --- Package Dependencies ---
 # These map the contents of packages.builder, packages.client, and packages.rust
 # from Debian names to standard Yocto OpenEmbedded layer names.
@@ -73,7 +78,7 @@ do_install() {
     fi
 
     # Fix ownership of the var/lib/satnogs configuration files
-    chown -R satnogs:satnogs ${D}${localstatedir}/lib/satnogs/.gr_satellites
+    chown -R satnogs:satnogs ${D}${localstatedir}/lib/satnogs/
 }
 
 # Ensure the python site-packages and var paths are packaged

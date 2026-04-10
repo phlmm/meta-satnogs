@@ -12,7 +12,7 @@ SATNOGS_STATION_ELEV="472"
 
 # --- Network & Storage Management ---
 SATNOGS_NETWORK_API_URL="https://network.satnogs.org/api/"
-SATNOGS_OUTPUT_PATH="/tmp/.satnogs/data"
+SATNOGS_OUTPUT_PATH="/var/lib/satnogs//data"
 SATNOGS_COMPLETE_OUTPUT_PATH="/var/lib/satnogs/data"
 # Crucial for Yocto: Deletes data from the tmpfs RAM disk after upload
 SATNOGS_REMOVE_RAW_FILES="True"

@@ -1,0 +1,10 @@
+[Unit]
+Description=Mount sda1 to root gs_buffer
+
+[Mount]
+ExecStartPre=/usr/bin/mkdir -p /var/lib/satnogs/data
+What=/dev/sda1
+Where=/var/lib/satnogs/data
+Type=auto
+Options=defaults,nofail
+DirectoryMode=0755

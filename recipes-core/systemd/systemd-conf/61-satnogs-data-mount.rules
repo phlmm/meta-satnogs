@@ -1,0 +1,2 @@
+# Trigger mount when sda1 is added
+SUBSYSTEM=="block", KERNEL=="sda1", ACTION=="add", TAG+="systemd", ENV{SYSTEMD_WANTS}="var-lib-satnogs-data.mount"
